@@ -46,24 +46,27 @@ end
 source $config_file
 set todo $todo_location/$todo_txt
 
-if test -z $argv[1]
-	usage
-	exit 0
-else if test $argv[1] = "l"; or test $argv[1] = "ls"; or test $argv[1] = "list"
-	$PAGER "$todo"
-	exit 0
-else if test $argv[1] = "e"; or test $argv[1] = "edit"; or test $argv[1] = "$EDITOR"
-	$EDITOR "$todo"
-	$PAGER "$todo"
-	exit 0
-else if test $argv[1] = "a"; or test $argv[1] = "add"
-	if test -z $argv[2]
-		echo "todo: task not inputted"
-		exit 1
+for item in $argv
+	switch $item
+		case "l" "ls" "list"
+			$PAGER "$todo"
+			exit 0
+		case "e" "edit" "$EDITOR"
+			$EDITOR "$todo"
+			$PAGER "$todo"
+			exit 0
+		case "a" "add"
+			if test -z $argv[2]
+				echo "$basename: task not inputted"
+				exit 1
+			end
+			echo $argv[2..(count $argv)] >> $todo
+			$PAGER "$todo"
+			exit 0
+		case "-h" "--help"
+			usage
+			help 0
 	end
-	echo $argv[2..(count $argv)] >> $todo
-	$PAGER "$todo"
-	exit 0
 end
 
 usage
