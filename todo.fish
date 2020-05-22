@@ -85,4 +85,4 @@ for item in $argv
 	end
 end
 
-usage
+$PAGER "$todo"
