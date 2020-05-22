@@ -16,7 +16,7 @@ Operations:
 	s, sort			Sort contents of todo.txt
 ```
 
-#### Installation
+## Installation
 ### PKGBUILD
 `$ makepkg -sic`
 ### Other
