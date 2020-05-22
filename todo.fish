@@ -20,6 +20,7 @@ function usage
 	echo "	e, edit, \$EDITOR	Edit contents of todo.txt"
 	echo "	a, add, append		Add task item to todo.txt"
 	echo "	d, del, delete		Delete task item from todo.txt"
+	echo "	s, sort			Sort contents of todo.txt"
 	echo ""
 	exit 0
 end
@@ -71,6 +72,11 @@ for item in $argv
 				exit 1
 			end
 			sed -i.bak $argv[2]'d' $todo
+			$PAGER "$todo"
+			exit 0
+		case "s" "sort"
+			cat $todo | sort > $todo.bak
+			cp $todo.bak $todo
 			$PAGER "$todo"
 			exit 0
 		case "-h" "--help"
