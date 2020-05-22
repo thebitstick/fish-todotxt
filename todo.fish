@@ -21,6 +21,7 @@ function usage
 	echo "	a, add, append		Add task item to todo.txt"
 	echo "	d, del, delete		Delete task item from todo.txt"
 	echo "	s, sort			Sort contents of todo.txt"
+	echo "	c, complete		Mark task item from todo.txt as completed"
 	echo ""
 	exit 0
 end
@@ -77,6 +78,16 @@ for item in $argv
 		case "s" "sort"
 			cat $todo | sort > $todo.bak
 			cp $todo.bak $todo
+			$PAGER "$todo"
+			exit 0
+		case "c" "completed"
+			if test -z $argv[2]
+				echo "$basename: line number not specified"
+				exit 1
+			end
+			cp $todo $todo.bak
+			begin; echo -n "x "; sed -n $argv[2]'p' $todo; end >> $todo
+			sed -i.bak $argv[2]'d' $todo
 			$PAGER "$todo"
 			exit 0
 		case "-h" "--help"
