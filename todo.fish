@@ -18,7 +18,9 @@ function usage
 	echo "Operations:"
 	echo "	l, ls, list		Show contents of todo.txt"
 	echo "	e, edit, \$EDITOR	Edit contents of todo.txt"
-	echo "	a, add			Add task item to todo.txt"
+	echo "	a, add, append		Add task item to todo.txt"
+	echo "	d, del, delete		Delete task item from todo.txt"
+	echo ""
 	exit 0
 end
 
@@ -55,12 +57,20 @@ for item in $argv
 			$EDITOR "$todo"
 			$PAGER "$todo"
 			exit 0
-		case "a" "add"
+		case "a" "add" "append"
 			if test -z $argv[2]
-				echo "$basename: task not inputted"
+				echo "$basename: task not specified"
 				exit 1
 			end
 			echo $argv[2..(count $argv)] >> $todo
+			$PAGER "$todo"
+			exit 0
+		case "d" "del" "delete"
+			if test -z $argv[2]
+				echo "$basename: line number not specified"
+				exit 1
+			end
+			sed -i.bak $argv[2]'d' $todo
 			$PAGER "$todo"
 			exit 0
 		case "-h" "--help"
