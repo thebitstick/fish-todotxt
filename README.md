@@ -1,2 +1,2 @@
 # fish-todotxt
-Simple todo.txt implementation without projects or contexts
+Simple todo.txt implementation in Fish
