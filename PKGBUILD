@@ -1,7 +1,7 @@
 # Maintainer: TheBitStick <the at bitstick dot rip>
 pkgname=fish-todotxt-git
 _pkgname=fish-todotxt
-pkgver=r7.8b4b90b
+pkgver=r9.5d73e97
 pkgrel=1
 pkgdesc="Simple todo.txt implementation without projects or contexts"
 arch=('any')
